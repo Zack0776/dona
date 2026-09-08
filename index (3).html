@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tecnologia na Paleontologia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-particles"></canvas>
+
+<!-- ===================== NAV FIXO ===================== -->
+<nav class="presenter-nav" id="presenterNav">
+  <span class="presenter-nav__label">Modo apresentação</span>
+  <div class="presenter-nav__buttons">
+    <button data-target="fossil"><span class="pn-icon">🦴</span>Fóssil</button>
+    <button data-target="tomografia"><span class="pn-icon">📡</span>Tomografia</button>
+    <button data-target="modelo3d"><span class="pn-icon">🧊</span>3D</button>
+    <button data-target="quimica"><span class="pn-icon">⚗️</span>Química</button>
+    <button data-target="impressao"><span class="pn-icon">🖨️</span>Impressão 3D</button>
+  </div>
+</nav>
+
+<!-- ===================== 1. INÍCIO ===================== -->
+<section id="inicio" class="section hero">
+  <div class="hero__glow"></div>
+  <div class="hero__content">
+    <p class="eyebrow">Biologia · Física · Química</p>
+    <h1 class="hero__title">Tecnologia na<br>Paleontologia</h1>
+    <p class="hero__subtitle">Como ferramentas digitais revelam os segredos do passado.</p>
+    <button class="btn btn--primary" id="enterLabBtn">Entrar no laboratório</button>
+  </div>
+  <div class="hero__fossil">
+    <svg viewBox="0 0 400 260" class="fossil-svg" aria-hidden="true">
+      <ellipse cx="200" cy="230" rx="180" ry="22" class="fossil-shadow"/>
+      <g class="fossil-glow-group">
+        <path d="M40 150 Q60 90 130 80 Q160 40 210 55 Q225 35 250 50 Q235 65 235 85 Q260 95 250 120 L235 118 Q250 150 220 165 L60 175 Q35 170 40 150Z" class="fossil-body"/>
+        <circle cx="205" cy="70" r="6" class="fossil-eye"/>
+        <path d="M215 62 L245 45" class="fossil-line"/>
+        <path d="M60 160 L58 195 M85 165 L82 200 M110 168 L108 205 M135 170 L134 208 M160 172 L160 210" class="fossil-line"/>
+      </g>
+    </svg>
+  </div>
+  <div class="scroll-hint">role para explorar ↓</div>
+</section>
+
+<!-- ===================== 2. FÓSSIL ===================== -->
+<section id="fossil" class="section">
+  <div class="section__inner two-col">
+    <div class="col-text">
+      <p class="eyebrow">Ponto de partida</p>
+      <h2>O fóssil</h2>
+      <p class="lead">Os fósseis são vestígios de seres vivos preservados nas rochas.</p>
+      <p>A tecnologia permite estudá-los sem precisar danificar a peça original.</p>
+      <div class="tag-row">
+        <span class="tag">Biologia</span>
+        <span class="tag">Preservação</span>
+        <span class="tag">Não invasivo</span>
+      </div>
+    </div>
+    <div class="col-visual">
+      <div class="display-case">
+        <span class="display-case__label">Fóssil</span>
+        <svg viewBox="0 0 400 260" class="fossil-svg fossil-svg--large" aria-hidden="true">
+          <ellipse cx="200" cy="230" rx="170" ry="20" class="fossil-shadow"/>
+          <path d="M40 150 Q60 90 130 80 Q160 40 210 55 Q225 35 250 50 Q235 65 235 85 Q260 95 250 120 L235 118 Q250 150 220 165 L60 175 Q35 170 40 150Z" class="fossil-body fossil-body--static"/>
+          <circle cx="205" cy="70" r="6" class="fossil-eye"/>
+          <path d="M60 160 L58 195 M85 165 L82 200 M110 168 L108 205 M135 170 L134 208 M160 172 L160 210" class="fossil-line"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. TOMOGRAFIA ===================== -->
+<section id="tomografia" class="section">
+  <div class="section__inner">
+    <p class="eyebrow">Física + Tecnologia</p>
+    <h2>Tomografia: analisando por dentro</h2>
+    <p class="lead">Os raios X atravessam o fóssil. O computador reúne várias imagens em cortes e consegue reconstruir o interior em 3D.</p>
+
+    <div class="scan-stage">
+      <div class="scan-window" id="scanWindow">
+        <div class="scan-beam" id="scanBeam"></div>
+        <svg viewBox="0 0 400 220" class="fossil-svg scan-fossil" id="scanFossil" aria-hidden="true">
+          <path d="M40 130 Q60 80 120 70 Q150 35 195 48 Q210 30 232 44 Q220 58 220 76 Q242 85 233 108 L220 106 Q233 134 205 148 L60 156 Q38 150 40 130Z" class="fossil-body"/>
+          <circle cx="200" cy="62" r="5" class="fossil-eye"/>
+        </svg>
+        <div class="scan-slices" id="scanSlices"></div>
+        <div class="scan-model" id="scanModel">
+          <svg viewBox="0 0 400 220" aria-hidden="true">
+            <path d="M40 130 Q60 80 120 70 Q150 35 195 48 Q210 30 232 44 Q220 58 220 76 Q242 85 233 108 L220 106 Q233 134 205 148 L60 156 Q38 150 40 130Z" class="fossil-body fossil-body--wire"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="scan-steps" id="scanSteps">
+        <div class="scan-step" data-step="0"><span class="scan-step__dot"></span>Fóssil</div>
+        <div class="scan-step" data-step="1"><span class="scan-step__dot"></span>Raios X</div>
+        <div class="scan-step" data-step="2"><span class="scan-step__dot"></span>Cortes digitais</div>
+        <div class="scan-step" data-step="3"><span class="scan-step__dot"></span>Processamento</div>
+        <div class="scan-step" data-step="4"><span class="scan-step__dot"></span>Modelo 3D</div>
+      </div>
+
+      <button class="btn btn--primary" id="startScanBtn">Iniciar tomografia</button>
+    </div>
+
+    <div class="two-col two-col--tight">
+      <div class="info-card"><span class="info-card__icon">⚛️</span><h3>Física</h3><p>Raios X atravessam o fóssil.</p></div>
+      <div class="info-card"><span class="info-card__icon">💻</span><h3>Tecnologia</h3><p>O computador processa as imagens.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. MODELO 3D ===================== -->
+<section id="modelo3d" class="section">
+  <div class="section__inner two-col">
+    <div class="col-text">
+      <p class="eyebrow">Biologia</p>
+      <h2>Modelo 3D</h2>
+      <p class="lead">Gire o modelo para observar a estrutura.</p>
+      <p>O modelo digital permite estudar a anatomia sem precisar manipular o fóssil original.</p>
+      <div class="tag-row">
+        <span class="tag">Anatomia</span>
+        <span class="tag">Estrutura óssea</span>
+        <span class="tag">Evolução</span>
+      </div>
+      <button class="btn btn--ghost" id="resetModelBtn">Resetar posição</button>
+    </div>
+    <div class="col-visual">
+      <div class="model-viewer" id="modelViewer">
+        <canvas id="threeCanvas"></canvas>
+        <div class="model-viewer__hint">arraste para girar · role para aproximar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. ESCANEAMENTO 3D ===================== -->
+<section id="escaneamento" class="section">
+  <div class="section__inner">
+    <p class="eyebrow">Tecnologia</p>
+    <h2>Escaneamento 3D</h2>
+    <p class="lead">Scanners registram a forma e os detalhes da superfície de um fóssil e transformam tudo em um modelo digital.</p>
+    <div class="flow-row">
+      <div class="flow-node"><span class="flow-node__icon">🦴</span>Fóssil</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><span class="flow-node__icon">📷</span>Scanner</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node"><span class="flow-node__icon">🧊</span>Modelo digital</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6. IMPRESSÃO 3D ===================== -->
+<section id="impressao" class="section">
+  <div class="section__inner two-col">
+    <div class="col-text">
+      <p class="eyebrow">Tecnologia</p>
+      <h2>Impressão 3D</h2>
+      <p class="lead">O arquivo digital pode virar uma réplica física.</p>
+      <p>Assim dá para estudar ou expor uma cópia sem colocar o fóssil original em risco.</p>
+    </div>
+    <div class="col-visual">
+      <div class="printer-stage" id="printerStage">
+        <div class="printer-head" id="printerHead"></div>
+        <div class="printer-fill" id="printerFill"></div>
+        <svg viewBox="0 0 400 220" class="fossil-svg" aria-hidden="true">
+          <path d="M40 130 Q60 80 120 70 Q150 35 195 48 Q210 30 232 44 Q220 58 220 76 Q242 85 233 108 L220 106 Q233 134 205 148 L60 156 Q38 150 40 130Z" class="fossil-body fossil-body--static"/>
+        </svg>
+        <button class="btn btn--ghost btn--small" id="printBtn">Imprimir réplica</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. QUÍMICA + DATAÇÃO ===================== -->
+<section id="quimica" class="section">
+  <div class="section__inner">
+    <p class="eyebrow">Química + Física</p>
+    <h2>Datação por decaimento</h2>
+    <p class="lead">Alguns elementos possuem isótopos radioativos que decaem numa taxa conhecida. Comparando isótopo-pai e isótopo-filho, dá para estimar a idade do material.</p>
+
+    <div class="decay-lab">
+      <div class="decay-visual" id="decayVisual"></div>
+      <div class="decay-controls">
+        <label for="decaySlider">Tempo (em meias-vidas)</label>
+        <input type="range" id="decaySlider" min="0" max="5" step="0.1" value="0">
+        <div class="decay-readout">
+          <div><span class="dot dot--parent"></span>Isótopo-pai: <strong id="parentPct">100%</strong></div>
+          <div><span class="dot dot--child"></span>Isótopo-filho: <strong id="childPct">0%</strong></div>
+        </div>
+        <p class="decay-note" id="halfLifeNote">Meia-vida: o tempo necessário para metade dos átomos radioativos decair.</p>
+      </div>
+    </div>
+
+    <p class="fine-print">Métodos diferentes servem para materiais e idades diferentes. O Carbono-14, por exemplo, é usado em materiais orgânicos relativamente recentes.</p>
+  </div>
+</section>
+
+<!-- ===================== 8. CONEXÃO DAS 4 ÁREAS ===================== -->
+<section id="conexao" class="section">
+  <div class="section__inner">
+    <p class="eyebrow">Tudo se conecta</p>
+    <h2>As quatro áreas, um só fóssil</h2>
+    <div class="chain">
+      <div class="chain-node"><span class="chain-node__icon">🦴</span><span>Fóssil</span></div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-node"><span class="chain-node__icon">⚛️</span><span>Física</span><small>Raios X · Radiação</small></div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-node"><span class="chain-node__icon">⚗️</span><span>Química</span><small>Isótopos · Decaimento</small></div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-node"><span class="chain-node__icon">🧬</span><span>Biologia</span><small>Anatomia · Evolução</small></div>
+      <div class="chain-arrow">↓</div>
+      <div class="chain-node"><span class="chain-node__icon">💻</span><span>Tecnologia</span><small>Tomografia · 3D · IA</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9. CONCLUSÃO ===================== -->
+<section id="conclusao" class="section section--end">
+  <div class="section__inner">
+    <p class="eyebrow">Do fóssil ao digital</p>
+    <h2 class="closing-title">A tecnologia revela o passado sem destruir o presente.</h2>
+    <p class="closing-credit">Isaque · Luca · Davi — 3º ano do Ensino Médio</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
